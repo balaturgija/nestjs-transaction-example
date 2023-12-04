@@ -1,6 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersRepository } from './users.repository';
 import { Sequelize } from 'sequelize-typescript';
 
@@ -10,23 +9,20 @@ export class UsersService {
     private readonly usersRepository: UsersRepository,
     @Inject('SEQUELIZE') private readonly sequelize: Sequelize,
   ) {}
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
-  }
+  async create(createUserDto: CreateUserDto) {
+    const transaction = await this.sequelize.transaction();
+    try {
+      const userCreate = await this.usersRepository.create(
+        createUserDto,
+        transaction,
+      );
 
-  findAll() {
-    return `This action returns all users`;
-  }
+      await transaction.commit();
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
-  }
-
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+      return userCreate;
+    } catch (error) {
+      await transaction.rollback();
+      throw new Error(error);
+    }
   }
 }
