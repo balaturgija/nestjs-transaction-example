@@ -1,5 +1,6 @@
 import { Transaction } from 'sequelize';
-import { CreateUserDto } from './dto/create-user.dto';
+
+import { CreateUserDto } from './dto';
 import { UserEntity } from './entities/user.entity';
 
 export class UsersRepository {
