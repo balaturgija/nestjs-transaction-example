@@ -1,10 +1,9 @@
 import { DataTypes } from 'sequelize';
 import {
   AllowNull,
-  BelongsTo,
   Column,
   Default,
-  ForeignKey,
+  HasOne,
   IsUUID,
   Model,
   PrimaryKey,
@@ -12,17 +11,17 @@ import {
 } from 'sequelize-typescript';
 import { v4 } from 'uuid';
 
-import { AbilityEntity } from '~modules/abilities';
+import { UserEntity } from '~modules/users';
 
 @Table({
-  tableName: 'users',
+  tableName: 'abilities',
   underscored: true,
   createdAt: true,
   updatedAt: true,
   deletedAt: true,
   paranoid: true,
 })
-export class UserEntity extends Model<UserEntity> {
+export class AbilityEntity extends Model<AbilityEntity> {
   @PrimaryKey
   @IsUUID(4)
   @AllowNull(false)
@@ -34,15 +33,7 @@ export class UserEntity extends Model<UserEntity> {
   @Column({ type: DataTypes.TEXT })
   name: string;
 
-  @ForeignKey(() => AbilityEntity)
-  @IsUUID(4)
-  @AllowNull(false)
-  @Column({
-    type: DataTypes.UUID,
-  })
-  abilityId: string;
-
   /* Associations */
-  @BelongsTo(() => AbilityEntity)
-  abillity: AbilityEntity;
+  @HasOne(() => UserEntity)
+  user: UserEntity;
 }

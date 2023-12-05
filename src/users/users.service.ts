@@ -1,6 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Sequelize } from 'sequelize-typescript';
 
+import { AbilitiesService } from '~modules/abilities';
+
 import { CreateUserDto } from './dto';
 import { UsersRepository } from './users.repository';
 
@@ -8,6 +10,7 @@ import { UsersRepository } from './users.repository';
 export class UsersService {
   constructor(
     private readonly usersRepository: UsersRepository,
+    private readonly abilitieService: AbilitiesService,
     @Inject('SEQUELIZE') private readonly sequelize: Sequelize,
   ) {}
   async create(createUserDto: CreateUserDto) {

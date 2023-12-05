@@ -1,5 +1,6 @@
 import { Sequelize } from 'sequelize-typescript';
 
+import { AbilityEntity } from '~modules/abilities';
 import { UserEntity } from '~modules/users';
 
 export const databaseProviders = [
@@ -13,7 +14,7 @@ export const databaseProviders = [
         username: process.env.DB_USERNAME,
         password: process.env.DB_PASSWORD,
         database: process.env.DB_NAME,
-        models: [UserEntity],
+        models: [UserEntity, AbilityEntity],
         define: {
           underscored: true,
           paranoid: true,

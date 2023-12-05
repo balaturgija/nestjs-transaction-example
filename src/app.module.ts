@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
+import { AbilitiesModule } from '~modules/abilities';
 import { DatabaseModule } from '~modules/database';
 import { UsersModule } from '~modules/users';
 
@@ -15,6 +16,7 @@ import { AppService } from './app.service';
     }),
     DatabaseModule,
     UsersModule,
+    AbilitiesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

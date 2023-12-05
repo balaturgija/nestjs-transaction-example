@@ -19,7 +19,8 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "~modules/database": ["./src/database/"],
-      "~modules/users": ["./src/users"]
+      "~modules/users": ["./src/users"],
+      "~modules/abilities": ["./src/abilities"]
     }
   }
 }
